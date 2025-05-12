@@ -513,16 +513,16 @@
 
         // Hiệu ứng các tag năng lượng bay vào trung tâm
         const tags = [
+            {text: 'Khuyến mãi hấp dẫn', color: 'yellow'},
+            {text: 'Hỗ trợ 24/7', color: 'deepblue'},
+            {text: 'Đổi trả linh hoạt', color: 'pink'},
+            {text: 'Giao hàng toàn quốc', color: 'orange'},
             {text: 'Uy tín', color: 'blue'},
             {text: 'Chất lượng', color: 'green'},
             {text: 'Rẻ đẹp bền sang trọng', color: 'orange'},
             {text: 'Bảo hành uy tín', color: 'purple'},
             {text: 'Laptop số 1 Việt Nam', color: 'red'},
-            {text: 'Dịch vụ tận tâm', color: 'cyan'},
-            {text: 'Khuyến mãi hấp dẫn', color: 'yellow'},
-            {text: 'Hỗ trợ 24/7', color: 'deepblue'},
-            {text: 'Đổi trả linh hoạt', color: 'pink'},
-            {text: 'Giao hàng toàn quốc', color: 'orange'}
+            {text: 'Dịch vụ tận tâm', color: 'cyan'}
         ];
         const energyTags = document.getElementById('energyTags');
         const energyParticles = document.getElementById('energyParticles');
@@ -530,91 +530,84 @@
         const centerText = document.getElementById('energyCenterText');
         const explosion = document.getElementById('energyExplosion');
         let tagIdx = 0;
-        let progress = 40;
-        const tagCount = 6;
+        let progress = 0;
+        const tagCount = tags.length;
         let activeTags = [];
         function placeTags() {
             energyTags.innerHTML = '';
             activeTags = [];
-            for (let i = 0; i < tagCount; i++) {
-                const tagData = tags[(tagIdx + i) % tags.length];
-                const tag = document.createElement('div');
-                tag.className = 'energy-tag ' + tagData.color;
-                tag.textContent = tagData.text;
-                energyTags.appendChild(tag);
-                activeTags.push({el: tag});
-            }
+            const tagData = tags[tagIdx % tags.length];
+            const tag = document.createElement('div');
+            tag.className = 'energy-tag ' + tagData.color;
+            tag.textContent = tagData.text;
+            energyTags.appendChild(tag);
+            activeTags.push({el: tag});
         }
-        // Truyền năng lượng từng thẻ một
-        let currentTagIdx = 0;
         function emitParticleFromTagSequential() {
             if (progress >= 100) return;
-            // Truyền hạt từ tất cả các thẻ cùng một lúc
-            activeTags.forEach((fromTag, index) => {
-                // Lấy màu từ class của thẻ
-                let color = '#42a5f5';
-                if (fromTag.el.classList.contains('orange')) color = '#ff9800';
-                if (fromTag.el.classList.contains('green')) color = '#43e97b';
-                if (fromTag.el.classList.contains('purple')) color = '#ab47bc';
-                if (fromTag.el.classList.contains('red')) color = '#e53935';
-                if (fromTag.el.classList.contains('blue')) color = '#42a5f5';
-                if (fromTag.el.classList.contains('yellow')) color = '#ffd600';
-                if (fromTag.el.classList.contains('cyan')) color = '#00bcd4';
-                if (fromTag.el.classList.contains('pink')) color = '#ec407a';
-                if (fromTag.el.classList.contains('deepblue')) color = '#1565c0';
-                const particle = document.createElement('div');
-                particle.className = 'energy-particle';
-                particle.style.background = color;
-                particle.style.boxShadow = `0 0 8px ${color}, 0 0 12px ${color}`;
-                // Đặt vị trí xuất phát (giữa thẻ)
-                const tagRect = fromTag.el.getBoundingClientRect();
-                const centerRect = center.getBoundingClientRect();
-                const containerRect = energyTags.parentElement.getBoundingClientRect();
-                const startX = tagRect.left + tagRect.width/2 - containerRect.left;
-                const startY = tagRect.top + tagRect.height/2 - containerRect.top;
-                const endX = centerRect.left + centerRect.width/2 - containerRect.left;
-                const endY = centerRect.top + centerRect.height/2 - containerRect.top;
-                particle.style.left = `${startX}px`;
-                particle.style.top = `${startY}px`;
-                energyParticles.appendChild(particle);
-                // Hiệu ứng bay lên trung tâm
-                setTimeout(() => {
-                    particle.style.transition = 'all 1.5s cubic-bezier(.4,2,.6,1)';
-                    particle.style.left = `${endX}px`;
-                    particle.style.top = `${endY}px`;
-                    particle.style.opacity = 0;
-                    particle.style.transform = 'scale(0.7)';
-                }, 30);
-                setTimeout(() => {
-                    if (energyParticles.contains(particle)) energyParticles.removeChild(particle);
-                    // Tăng phần trăm
-                    progress += 100 / (tagCount * 3); // mỗi thẻ truyền 3 hạt để đủ 100%
-                    if (progress > 100) progress = 100;
-                    document.getElementById('energyProgressInner').style.width = progress + '%';
-                    document.getElementById('energyProgressText').textContent = Math.round(progress) + '%';
-                    if (progress >= 100) {
-                        triggerExplosion();
-                    } else {
-                        // Mỗi thẻ truyền 3 hạt rồi mới chuyển sang thẻ tiếp theo
-                        if (!fromTag.particleCount) fromTag.particleCount = 0;
-                        fromTag.particleCount++;
-                        if (fromTag.particleCount < 3) {
-                            setTimeout(emitParticleFromTagSequential, 400);
-                        } else {
-                            fromTag.particleCount = 0;
-                            currentTagIdx++;
-                            setTimeout(emitParticleFromTagSequential, 400);
-                        }
-                    }
-                }, 1600);
-            });
+            const fromTag = activeTags[0];
+            // Lấy màu từ class của thẻ
+            let color = '#42a5f5';
+            if (fromTag.el.classList.contains('orange')) color = '#ff9800';
+            if (fromTag.el.classList.contains('green')) color = '#43e97b';
+            if (fromTag.el.classList.contains('purple')) color = '#ab47bc';
+            if (fromTag.el.classList.contains('red')) color = '#e53935';
+            if (fromTag.el.classList.contains('blue')) color = '#42a5f5';
+            if (fromTag.el.classList.contains('yellow')) color = '#ffd600';
+            if (fromTag.el.classList.contains('cyan')) color = '#00bcd4';
+            if (fromTag.el.classList.contains('pink')) color = '#ec407a';
+            if (fromTag.el.classList.contains('deepblue')) color = '#1565c0';
+            const particle = document.createElement('div');
+            particle.className = 'energy-particle';
+            particle.style.background = color;
+            particle.style.boxShadow = `0 0 8px ${color}, 0 0 12px ${color}`;
+            // Đặt vị trí xuất phát (giữa thẻ)
+            const tagRect = fromTag.el.getBoundingClientRect();
+            const centerRect = center.getBoundingClientRect();
+            const containerRect = energyTags.parentElement.getBoundingClientRect();
+            const startX = tagRect.left + tagRect.width/2 - containerRect.left;
+            const startY = tagRect.top + tagRect.height/2 - containerRect.top;
+            const endX = centerRect.left + centerRect.width/2 - containerRect.left;
+            const endY = centerRect.top + centerRect.height/2 - containerRect.top;
+            particle.style.left = `${startX}px`;
+            particle.style.top = `${startY}px`;
+            energyParticles.appendChild(particle);
+            // Hiệu ứng bay lên trung tâm
+            setTimeout(() => {
+                particle.style.transition = 'all 1.5s cubic-bezier(.4,2,.6,1)';
+                particle.style.left = `${endX}px`;
+                particle.style.top = `${endY}px`;
+                particle.style.opacity = 0;
+                particle.style.transform = 'scale(0.7)';
+            }, 30);
+            setTimeout(() => {
+                if (energyParticles.contains(particle)) energyParticles.removeChild(particle);
+                // Tăng phần trăm
+                progress += 100 / tagCount; // mỗi thẻ truyền 1 hạt để đủ 100%
+                if (progress > 100) progress = 100;
+                document.getElementById('energyProgressInner').style.width = progress + '%';
+                document.getElementById('energyProgressText').textContent = Math.round(progress) + '%';
+                if (progress >= 100) {
+                    triggerExplosion();
+                } else {
+                    // Xóa thẻ cũ
+                    energyTags.innerHTML = '';
+                    activeTags = [];
+                    // Đợi 1 giây rồi hiện thẻ mới
+                    setTimeout(() => {
+                        tagIdx++;
+                        placeTags();
+                        setTimeout(emitParticleFromTagSequential, 400);
+                    }, 1000);
+                }
+            }, 1600);
         }
         function triggerExplosion() {
             explosion.innerHTML = '<div class="energy-explosion-effect"></div>';
             explosion.style.display = 'flex';
             document.getElementById('laptopScreenText').textContent = '';
             centerText.style.display = 'block';
-            centerText.innerHTML = 'Laptop Bảo Duy<br><span style="font-size:1.2em;color:#ff9800;">số 1 Việt Nam</span>';
+            centerText.innerHTML = 'No1<br><span style="font-size:1.2em;color:#ff9800;">số 1 Việt Nam</span>';
             centerText.classList.add('final');
             setTimeout(() => {
                 explosion.style.display = 'none';
@@ -624,17 +617,15 @@
                 progress = 0;
                 document.getElementById('energyProgressInner').style.width = progress + '%';
                 document.getElementById('energyProgressText').textContent = progress + '%';
-                tagIdx = (tagIdx + tagCount) % tags.length;
+                tagIdx = 0;
                 placeTags();
                 setTimeout(() => {
-                    currentTagIdx = 0;
                     emitParticleFromTagSequential();
                 }, 800);
             }, 1200);
         }
         placeTags();
         setTimeout(() => {
-            currentTagIdx = 0;
             emitParticleFromTagSequential();
         }, 800);
     </script>
