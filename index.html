@@ -62,14 +62,19 @@
             font-weight: bold;
             border: none;
             border-radius: 10px;
-            padding: 12px 28px;
-            font-size: 18px;
+            padding: 16px 36px;
+            font-size: 24px;
             box-shadow: 0 4px 16px rgba(56,249,215,0.15);
             transition: background 0.2s, box-shadow 0.2s;
+            animation: blink-nearest 1.2s infinite;
         }
         .btn-nearest:hover {
             background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
             box-shadow: 0 8px 32px rgba(56,249,215,0.22);
+        }
+        @keyframes blink-nearest {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.35); }
         }
         .location-button {
             position: absolute;
@@ -95,15 +100,42 @@
         .store-card.bg-ninhbinh { background: linear-gradient(90deg, #7e57c2 0%, #d1c4e9 100%); color: #fff; }
         .store-card.bg-namdinh { background: linear-gradient(90deg, #789262 0%, #dcedc8 100%); color: #fff; }
         .store-card.bg-hanoi { background: linear-gradient(90deg, #29b6f6 0%, #b3e5fc 100%); color: #fff; }
+        .arrow-animate {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .arrow {
+            width: 40px;
+            height: 40px;
+            margin-bottom: -8px;
+            animation: bounce-arrow 1.2s infinite;
+        }
+        @keyframes bounce-arrow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(12px); }
+        }
+        .nearest-desc {
+            color: #333;
+            font-size: 15px;
+            font-style: italic;
+            margin-top: 6px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container mt-4">
         <h1 class="text-center mb-4">Laptop Bảo Duy - Hệ thống cửa hàng toàn quốc</h1>
-        <div class="d-flex justify-content-center mb-3">
+        <div class="d-flex justify-content-center mb-3 flex-column align-items-center">
+            <div class="arrow-animate">
+                <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="#43e97b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
             <button id="findNearestBtn" class="btn-nearest">
                 <i class="fas fa-location-arrow"></i> Tìm cửa hàng gần nhất
             </button>
+            <div class="nearest-desc">Nhấn nút này để tự động tìm cửa hàng gần nhất.</div>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -114,7 +146,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Hồ Chí Minh</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0978.800.841</p>
+                                <a href="tel:0978800841" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0978.800.841 <i class='fas fa-phone-alt'></i></a>
                                 <div class="store-navigation">
                                     <button style="background: #ff7043; color: #fff;" onclick="navigateToStore('10.762622,106.660172', 'Hồ Chí Minh')">
                                         <i class="fas fa-directions"></i> Chỉ đường
@@ -126,7 +158,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Nha Trang</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0973.159.246</p>
+                                <a href="tel:0973159246" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0973.159.246 <i class='fas fa-phone-alt'></i></a>
                                 <div class="store-navigation">
                                     <button style="background: #42a5f5; color: #fff;" onclick="navigateToStore('12.238791,109.196749', 'Nha Trang')">
                                         <i class="fas fa-directions"></i> Chỉ đường
@@ -138,7 +170,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Bình Định</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0935.603.339</p>
+                                <a href="tel:0935603339" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0935.603.339 <i class='fas fa-phone-alt'></i></a>
                                 <div class="store-navigation">
                                     <button style="background: #66bb6a; color: #fff;" onclick="navigateToStore('13.880511,109.110321', 'Bình Định')">
                                         <i class="fas fa-directions"></i> Chỉ đường
@@ -150,7 +182,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Đà Nẵng</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0961.217.555</p>
+                                <a href="tel:0961217555" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0961.217.555 <i class='fas fa-phone-alt'></i></a>
                                 <div class="store-navigation">
                                     <button style="background: #ab47bc; color: #fff;" onclick="navigateToStore('16.054407,108.202167', 'Đà Nẵng')">
                                         <i class="fas fa-directions"></i> Chỉ đường
@@ -162,7 +194,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Quảng Trị</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0914.034.824</p>
+                                <a href="tel:0914034824" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0914.034.824 <i class='fas fa-phone-alt'></i></a>
                                 <div class="store-navigation">
                                     <button style="background: #ffa726; color: #fff;" onclick="navigateToStore('16.750000,107.200000', 'Quảng Trị')">
                                         <i class="fas fa-directions"></i> Chỉ đường
@@ -174,7 +206,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Quảng Bình</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0985.747.555</p>
+                                <a href="tel:0985747555" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0985.747.555 <i class='fas fa-phone-alt'></i></a>
                                 <p class="card-text">
                                     <small class="text-muted">
                                         <strong>Tọa độ:</strong><br>
@@ -193,7 +225,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Tp Vinh</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0969.127.555</p>
+                                <a href="tel:0969127555" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0969.127.555 <i class='fas fa-phone-alt'></i></a>
                                 <div class="store-navigation">
                                     <button style="background: #ec407a; color: #fff;" onclick="navigateToStore('18.679585,105.681335', 'Tp Vinh')">
                                         <i class="fas fa-directions"></i> Chỉ đường
@@ -205,7 +237,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Ninh Bình</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0913.336.242</p>
+                                <a href="tel:0913336242" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0913.336.242 <i class='fas fa-phone-alt'></i></a>
                                 <div class="store-navigation">
                                     <button style="background: #7e57c2; color: #fff;" onclick="navigateToStore('20.253665,105.975000', 'Ninh Bình')">
                                         <i class="fas fa-directions"></i> Chỉ đường
@@ -217,7 +249,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Nam Định</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0949.175.222</p>
+                                <a href="tel:0949175222" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0949.175.222 <i class='fas fa-phone-alt'></i></a>
                                 <div class="store-navigation">
                                     <button style="background: #789262; color: #fff;" onclick="navigateToStore('20.433333,106.166667', 'Nam Định')">
                                         <i class="fas fa-directions"></i> Chỉ đường
@@ -229,7 +261,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Hà Nội</h5>
                                 <p class="card-text location-desc" style="font-style:italic;">Mô tả vị trí: </p>
-                                <p class="card-text">Hotline: 0822.873.999</p>
+                                <a href="tel:0822873999" class="btn btn-outline-light btn-sm mb-2" style="font-weight:bold; background:rgba(0,0,0,0.10); border-radius:6px;">Hotline: 0822.873.999 <i class='fas fa-phone-alt'></i></a>
                                 <div class="store-navigation">
                                     <button style="background: #29b6f6; color: #fff;" onclick="navigateToStore('21.028511,105.804817', 'Hà Nội')">
                                         <i class="fas fa-directions"></i> Chỉ đường
