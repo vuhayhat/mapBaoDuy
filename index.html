@@ -123,11 +123,173 @@
             margin-top: 6px;
             text-align: center;
         }
+        .animated-title {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 2.4rem;
+            font-weight: bold;
+            margin-bottom: 32px;
+            min-height: 60px;
+            position: relative;
+        }
+        .animated-title span {
+            opacity: 0;
+            display: inline-block;
+            transform: translateY(-60px) scale(1.2) rotate(-10deg);
+            animation: dropIn 0.5s forwards;
+        }
+        .rainbow {
+            background: linear-gradient(90deg, #ff7043, #42a5f5, #66bb6a, #ab47bc, #ffa726, #26a69a, #ec407a, #7e57c2, #29b6f6);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowMove 2s linear infinite;
+        }
+        @keyframes dropIn {
+            0% { opacity: 0; transform: translateY(-60px) scale(1.2) rotate(-10deg); }
+            80% { opacity: 1; transform: translateY(8px) scale(1.05) rotate(2deg); }
+            100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+        }
+        @keyframes rainbowMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .energy-center-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+            position: relative;
+            min-height: 260px;
+        }
+        .energy-center {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #b3e5fc 0%, #2196f3 60%, #1565c0 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px 10px #40c4ff, 0 0 80px 20px #2196f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+        .energy-center-text {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 12px #2196f3, 0 0px 2px #fff;
+            line-height: 1.2;
+        }
+        .energy-tag {
+            position: absolute;
+            min-width: 120px;
+            padding: 8px 18px;
+            border-radius: 24px;
+            font-weight: bold;
+            font-size: 1.08rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            opacity: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            background: #fff;
+            border: 2px solid #2196f3;
+            color: #2196f3;
+            transition: background 0.2s, color 0.2s;
+            z-index: 1;
+        }
+        .energy-tag.orange { border-color: #ff9800; color: #ff9800; }
+        .energy-tag.green { border-color: #43e97b; color: #43e97b; }
+        .energy-tag.purple { border-color: #ab47bc; color: #ab47bc; }
+        .energy-tag.red { border-color: #e53935; color: #e53935; }
+        .energy-tag.blue { border-color: #42a5f5; color: #42a5f5; }
+        .energy-tag.yellow { border-color: #ffd600; color: #ffd600; }
+        .energy-tag.cyan { border-color: #00bcd4; color: #00bcd4; }
+        .energy-tag.pink { border-color: #ec407a; color: #ec407a; }
+        .energy-tag.deepblue { border-color: #1565c0; color: #1565c0; }
+        .energy-progress-bar {
+            width: 180px;
+            height: 18px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #42a5f5 0%, #43e97b 100%);
+            margin: 24px auto 0 auto;
+            box-shadow: 0 2px 12px rgba(33,150,243,0.13);
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .energy-progress-inner {
+            height: 100%;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #43e97b 0%, #42a5f5 100%);
+            transition: width 0.7s cubic-bezier(.4,2,.6,1);
+        }
+        .energy-progress-text {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 6px #2196f3;
+        }
+        .energy-explosion {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            width: 180px;
+            height: 180px;
+            pointer-events: none;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .energy-explosion-effect {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff 0%, #42a5f5 40%, transparent 80%);
+            opacity: 0.8;
+            animation: explosion 0.8s forwards;
+        }
+        @keyframes explosion {
+            0% { opacity: 0.8; transform: scale(0.5); }
+            60% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(2.2); }
+        }
+        .energy-center-text.final {
+            font-size: 1.6rem;
+            color: #ff9800;
+            text-shadow: 0 2px 16px #fff, 0 0px 2px #ff9800;
+            animation: popIn 0.7s;
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.7); }
+            70% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
     <div class="container mt-4">
-        <h1 class="text-center mb-4">Laptop Bảo Duy - Hệ thống cửa hàng toàn quốc</h1>
+        <h1 class="animated-title text-center mb-4" id="animatedTitle"></h1>
+        <div class="energy-center-container">
+            <div class="energy-center" id="energyCenter">
+                <div class="energy-center-text" id="energyCenterText">Laptop<br>Bảo Duy</div>
+            </div>
+            <div id="energyTags"></div>
+            <div class="energy-explosion" id="energyExplosion" style="display:none;"></div>
+            <div class="energy-progress-bar">
+                <div class="energy-progress-inner" id="energyProgressInner" style="width: 40%"></div>
+                <div class="energy-progress-text" id="energyProgressText">40%</div>
+            </div>
+        </div>
         <div class="d-flex justify-content-center mb-3 flex-column align-items-center">
             <div class="arrow-animate">
                 <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="#43e97b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -323,6 +485,110 @@
                 alert('Trình duyệt của bạn không hỗ trợ định vị.');
             }
         };
+
+        // Hiệu ứng tiêu đề từng chữ rơi xuống, màu rainbow, lặp lại
+        const titleText = 'Laptop Bảo Duy - Hệ thống cửa hàng toàn quốc';
+        const titleEl = document.getElementById('animatedTitle');
+        function animateTitleLoop() {
+            titleEl.innerHTML = '';
+            titleText.split('').forEach((char, idx) => {
+                const span = document.createElement('span');
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                span.className = 'rainbow';
+                span.style.animationDelay = (idx * 0.045) + 's';
+                titleEl.appendChild(span);
+            });
+            setTimeout(() => {
+                titleEl.innerHTML = '';
+                setTimeout(animateTitleLoop, 400);
+            }, titleText.length * 45 + 900);
+        }
+        animateTitleLoop();
+
+        // Hiệu ứng các tag năng lượng bay vào trung tâm
+        const tags = [
+            {text: 'Uy tín', color: 'blue'},
+            {text: 'Chất lượng', color: 'green'},
+            {text: 'Rẻ đẹp bền sang trọng', color: 'orange'},
+            {text: 'Bảo hành uy tín', color: 'purple'},
+            {text: 'Laptop số 1 Việt Nam', color: 'red'},
+            {text: 'Dịch vụ tận tâm', color: 'cyan'},
+            {text: 'Khuyến mãi hấp dẫn', color: 'yellow'},
+            {text: 'Hỗ trợ 24/7', color: 'deepblue'},
+            {text: 'Đổi trả linh hoạt', color: 'pink'},
+            {text: 'Giao hàng toàn quốc', color: 'orange'}
+        ];
+        const energyTags = document.getElementById('energyTags');
+        const center = document.getElementById('energyCenter');
+        const centerText = document.getElementById('energyCenterText');
+        const explosion = document.getElementById('energyExplosion');
+        const centerRect = () => center.getBoundingClientRect();
+        const containerRect = () => energyTags.parentElement.getBoundingClientRect();
+        let tagIdx = 0;
+        let progress = 40;
+        const tagPositions = [
+            {angle: 120, radius: 140},
+            {angle: 240, radius: 140}
+        ];
+        let activeTags = [];
+        function showEnergyTags() {
+            if (activeTags.length >= 2) return;
+            const pos = tagPositions[activeTags.length % tagPositions.length];
+            const tagData = tags[tagIdx % tags.length];
+            const tag = document.createElement('div');
+            tag.className = 'energy-tag ' + tagData.color;
+            tag.textContent = tagData.text;
+            energyTags.appendChild(tag);
+            // Vị trí xuất phát
+            const rad = pos.angle * Math.PI / 180;
+            tag.style.left = `calc(50% + ${Math.cos(rad) * pos.radius}px)`;
+            tag.style.top = `calc(50% + ${Math.sin(rad) * pos.radius}px)`;
+            tag.style.opacity = 1;
+            tag.style.transform = 'scale(1)';
+            activeTags.push(tag);
+            // Hiệu ứng bay vào trung tâm chậm
+            setTimeout(() => {
+                tag.style.transition = 'all 2.2s cubic-bezier(.4,2,.6,1)';
+                tag.style.left = '50%';
+                tag.style.top = '50%';
+                tag.style.opacity = 0;
+                tag.style.transform = 'scale(0.7)';
+            }, 100);
+            setTimeout(() => {
+                if (energyTags.contains(tag)) energyTags.removeChild(tag);
+                activeTags = activeTags.filter(t => t !== tag);
+                // Tăng phần trăm
+                progress += 30;
+                if (progress > 100) progress = 100;
+                document.getElementById('energyProgressInner').style.width = progress + '%';
+                document.getElementById('energyProgressText').textContent = progress + '%';
+                if (progress >= 100) {
+                    triggerExplosion();
+                } else {
+                    setTimeout(showEnergyTags, 800);
+                }
+            }, 2300);
+            tagIdx++;
+            if (activeTags.length < 2) setTimeout(showEnergyTags, 900);
+        }
+        function triggerExplosion() {
+            explosion.innerHTML = '<div class="energy-explosion-effect"></div>';
+            explosion.style.display = 'flex';
+            centerText.innerHTML = 'Laptop Bảo Duy<br><span style="font-size:1.2em;color:#ff9800;">số 1 Việt Nam</span>';
+            centerText.classList.add('final');
+            setTimeout(() => {
+                explosion.style.display = 'none';
+                centerText.innerHTML = 'Laptop<br>Bảo Duy';
+                centerText.classList.remove('final');
+                progress = 0;
+                document.getElementById('energyProgressInner').style.width = progress + '%';
+                document.getElementById('energyProgressText').textContent = progress + '%';
+                tagIdx++;
+                setTimeout(showEnergyTags, 1000);
+            }, 1200);
+        }
+        // Khởi động hiệu ứng
+        setTimeout(showEnergyTags, 800);
     </script>
 </body>
 </html> 
