@@ -151,6 +151,9 @@
             margin-bottom: 32px;
             position: relative;
             min-height: 260px;
+            overflow: hidden;
+            max-width: 100%;
+            padding: 0 10px;
         }
         .energy-center {
             width: 140px;
@@ -397,32 +400,35 @@
             100% { opacity: 1; transform: scale(1); }
         }
         @media (max-width: 768px) {
+            .energy-center-container {
+                transform: scale(0.9);
+                margin-bottom: 20px;
+            }
             .energy-tags-row {
-                margin-top: 150px;
-                gap: 12px;
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 100%;
+                margin-top: 120px;
+                gap: 10px;
                 padding: 0 10px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                max-width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .energy-tags-row::-webkit-scrollbar {
+                display: none;
             }
             .energy-tag {
-                min-width: unset;
-                width: 100%;
-                font-size: 0.95rem;
-                padding: 10px 12px;
-                margin: 4px;
-                white-space: normal;
-                height: auto;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-            }
-            .energy-center {
-                transform: scale(0.9);
-            }
-            .energy-explosion {
-                transform: translate(-50%, -50%) scale(0.8);
+                flex: 0 0 auto;
+                min-width: auto;
+                font-size: 0.9rem;
+                padding: 8px 15px;
+                margin: 5px;
+                white-space: nowrap;
+                transform: scale(0.95);
             }
             .main-title {
                 font-size: 1.8rem;
@@ -432,32 +438,37 @@
             .energy-progress-bar {
                 width: 140px;
                 height: 16px;
-            }
-            .energy-progress-text {
-                font-size: 0.9rem;
+                margin-top: 15px;
             }
             .energy-particle {
-                width: 10px;
-                height: 10px;
+                width: 8px;
+                height: 8px;
             }
         }
         @media (max-width: 480px) {
+            .energy-center-container {
+                transform: scale(0.8);
+            }
             .energy-tags-row {
-                margin-top: 120px;
-                grid-template-columns: 1fr;
+                margin-top: 100px;
+                gap: 8px;
             }
             .energy-tag {
-                font-size: 0.9rem;
-                padding: 8px 10px;
+                font-size: 0.85rem;
+                padding: 6px 12px;
+                margin: 4px;
+                transform: scale(0.9);
             }
             .main-title {
                 font-size: 1.5rem;
             }
-            .energy-center {
-                transform: scale(0.8);
+            .energy-progress-bar {
+                width: 120px;
+                height: 14px;
             }
-            .energy-explosion {
-                transform: translate(-50%, -50%) scale(0.7);
+            .energy-particle {
+                width: 6px;
+                height: 6px;
             }
         }
     </style>
