@@ -72,26 +72,13 @@
 <body>
     <div class="container mt-4">
         <h1 class="text-center mb-4">Laptop Bảo Duy - Hệ thống cửa hàng toàn quốc</h1>
-        
+        <div class="d-flex justify-content-center mb-3">
+            <button id="findNearestBtn" class="btn btn-success">
+                <i class="fas fa-location-arrow"></i> Tìm cửa hàng gần nhất
+            </button>
+        </div>
         <div class="row">
-            <div class="col-md-8">
-                <div style="position: relative;">
-                    <div class="align-center">
-                        <div class="iframe-container">
-                            <h2 class="text-center mb-3">Bản đồ cửa hàng</h2>
-                            <iframe 
-                                id="storeMap"
-                                title="Laptop Bảo Duy - Cửa hàng"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.5448054465073!2d106.60560297540788!3d17.481487800087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314757992cdcb527%3A0xc6308810add5285!2zxJDhuqFpIGjhu41jIFF14bqjbmcgQsOsbmg!5e0!3m2!1svi!2s!4v1731256860837!5m2!1svi!2s"
-                                allowfullscreen=""
-                                loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div class="store-info">
                     <h3>Danh sách cửa hàng</h3>
                     <div class="list-group">
@@ -100,8 +87,8 @@
                                 <h5 class="card-title">Hồ Chí Minh</h5>
                                 <p class="card-text">Hotline: 0978.800.841</p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('10.762622,106.660172', 'Hồ Chí Minh')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('10.762622,106.660172', 'Hồ Chí Minh')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -111,8 +98,8 @@
                                 <h5 class="card-title">Nha Trang</h5>
                                 <p class="card-text">Hotline: 0973.159.246</p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('12.238791,109.196749', 'Nha Trang')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('12.238791,109.196749', 'Nha Trang')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -122,8 +109,8 @@
                                 <h5 class="card-title">Bình Định</h5>
                                 <p class="card-text">Hotline: 0935.603.339</p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('13.880511,109.110321', 'Bình Định')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('13.880511,109.110321', 'Bình Định')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -133,8 +120,8 @@
                                 <h5 class="card-title">Đà Nẵng</h5>
                                 <p class="card-text">Hotline: 0961.217.555</p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('16.054407,108.202167', 'Đà Nẵng')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('16.054407,108.202167', 'Đà Nẵng')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -144,8 +131,8 @@
                                 <h5 class="card-title">Quảng Trị</h5>
                                 <p class="card-text">Hotline: 0914.034.824</p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('16.750000,107.200000', 'Quảng Trị')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('16.750000,107.200000', 'Quảng Trị')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -162,8 +149,8 @@
                                     </small>
                                 </p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('17.465722,106.599167', 'Quảng Bình')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('17.465722,106.599167', 'Quảng Bình')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -173,8 +160,8 @@
                                 <h5 class="card-title">Tp Vinh</h5>
                                 <p class="card-text">Hotline: 0969.127.555</p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('18.679585,105.681335', 'Tp Vinh')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('18.679585,105.681335', 'Tp Vinh')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -184,8 +171,8 @@
                                 <h5 class="card-title">Ninh Bình</h5>
                                 <p class="card-text">Hotline: 0913.336.242</p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('20.253665,105.975000', 'Ninh Bình')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('20.253665,105.975000', 'Ninh Bình')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -195,8 +182,8 @@
                                 <h5 class="card-title">Nam Định</h5>
                                 <p class="card-text">Hotline: 0949.175.222</p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('20.433333,106.166667', 'Nam Định')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('20.433333,106.166667', 'Nam Định')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -206,8 +193,8 @@
                                 <h5 class="card-title">Hà Nội</h5>
                                 <p class="card-text">Hotline: 0822.873.999</p>
                                 <div class="store-navigation">
-                                    <button onclick="updateMap('21.028511,105.804817', 'Hà Nội')">
-                                        <i class="fas fa-directions"></i> Xem trên bản đồ
+                                    <button onclick="navigateToStore('21.028511,105.804817', 'Hà Nội')">
+                                        <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
@@ -221,27 +208,51 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
     <script>
-        function updateMap(coordinates, storeName) {
+        // Danh sách cửa hàng với tọa độ
+        const stores = [
+            {name: 'Hồ Chí Minh', lat: 10.762622, lng: 106.660172},
+            {name: 'Nha Trang', lat: 12.238791, lng: 109.196749},
+            {name: 'Bình Định', lat: 13.880511, lng: 109.110321},
+            {name: 'Đà Nẵng', lat: 16.054407, lng: 108.202167},
+            {name: 'Quảng Trị', lat: 16.750000, lng: 107.200000},
+            {name: 'Quảng Bình', lat: 17.465722, lng: 106.599167},
+            {name: 'Tp Vinh', lat: 18.679585, lng: 105.681335},
+            {name: 'Ninh Bình', lat: 20.253665, lng: 105.975000},
+            {name: 'Nam Định', lat: 20.433333, lng: 106.166667},
+            {name: 'Hà Nội', lat: 21.028511, lng: 105.804817}
+        ];
+
+        function navigateToStore(coordinates, storeName) {
             const [lat, lng] = coordinates.split(',');
-            const mapUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.5448054465073!2d${lng}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314757992cdcb527%3A0xc6308810add5285!2zTGFwdG9wIEJhbyBEdXkg${encodeURIComponent(storeName)}!5e0!3m2!1svi!2s!4v1731256860837!5m2!1svi!2s&zoom=15&mode=driving&q=${lat},${lng}&maptype=roadmap&markers=color:red%7C${lat},${lng}`;
-            
-            const mapContainer = document.getElementById('storeMap').parentElement;
-            const directionsButton = document.createElement('button');
-            directionsButton.className = 'btn btn-primary mt-2';
-            directionsButton.innerHTML = `<i class="fas fa-directions"></i> Chỉ đường đến ${storeName}`;
-            directionsButton.onclick = function() {
-                window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`, '_blank');
-            };
-            
-            const oldButton = mapContainer.querySelector('.btn-primary');
-            if (oldButton) {
-                oldButton.remove();
-            }
-            
-            mapContainer.appendChild(directionsButton);
-            
-            document.getElementById('storeMap').src = mapUrl;
+            window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`, '_blank');
         }
+
+        document.getElementById('findNearestBtn').onclick = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+                    let minDist = Infinity;
+                    let nearest = null;
+                    stores.forEach(store => {
+                        const dist = Math.sqrt(Math.pow(store.lat - userLat, 2) + Math.pow(store.lng - userLng, 2));
+                        if (dist < minDist) {
+                            minDist = dist;
+                            nearest = store;
+                        }
+                    });
+                    if (nearest) {
+                        window.open(`https://www.google.com/maps/dir/?api=1&destination=${nearest.lat},${nearest.lng}&travelmode=driving`, '_blank');
+                    } else {
+                        alert('Không tìm thấy cửa hàng gần nhất.');
+                    }
+                }, function() {
+                    alert('Không thể lấy vị trí của bạn.');
+                });
+            } else {
+                alert('Trình duyệt của bạn không hỗ trợ định vị.');
+            }
+        };
     </script>
 </body>
 </html> 
