@@ -153,28 +153,50 @@
             min-height: 260px;
         }
         .energy-center {
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, #b3e5fc 0%, #2196f3 60%, #1565c0 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 40px 10px #40c4ff, 0 0 80px 20px #2196f3;
+            width: 140px;
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             z-index: 2;
         }
-        .energy-center-text {
-            color: #fff;
-            font-size: 1.25rem;
+        .laptop-svg-center {
+            width: 140px;
+            height: 100px;
+            display: block;
+        }
+        .laptop-screen-text {
+            font-size: 1.1rem;
             font-weight: bold;
-            text-align: center;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 12px #2196f3, 0 0px 2px #fff;
-            line-height: 1.2;
+            fill: #2196f3;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .energy-center-text {
+            font-size: 1.2rem;
+            color: #ff9800;
+            text-shadow: 0 2px 16px #fff, 0 0px 2px #ff9800;
+            animation: popIn 0.7s;
+            position: absolute;
+            left: 50%;
+            top: 38%;
+            transform: translate(-50%,-50%);
+            z-index: 3;
+            pointer-events: none;
+        }
+        .energy-tags-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 18px;
+            margin-top: 38px;
+            position: relative;
+            z-index: 2;
         }
         .energy-tag {
-            position: absolute;
+            position: relative;
             min-width: 120px;
             padding: 8px 18px;
             border-radius: 24px;
@@ -184,19 +206,27 @@
             opacity: 1;
             pointer-events: none;
             white-space: nowrap;
-            background: #fff;
-            border: 2px solid #2196f3;
-            color: #2196f3;
+            border: 2px solid transparent;
+            color: #fff;
             transition: background 0.2s, color 0.2s;
             z-index: 1;
         }
+        .energy-tag.orange { background: linear-gradient(90deg, #ff9800 60%, #ffd180 100%); color: #fff; }
+        .energy-tag.green { background: linear-gradient(90deg, #43e97b 60%, #b9f6ca 100%); color: #fff; }
+        .energy-tag.purple { background: linear-gradient(90deg, #ab47bc 60%, #e1bee7 100%); color: #fff; }
+        .energy-tag.red { background: linear-gradient(90deg, #e53935 60%, #ff8a80 100%); color: #fff; }
+        .energy-tag.blue { background: linear-gradient(90deg, #42a5f5 60%, #b3e5fc 100%); color: #fff; }
+        .energy-tag.yellow { background: linear-gradient(90deg, #ffd600 60%, #fff59d 100%); color: #fff; }
+        .energy-tag.cyan { background: linear-gradient(90deg, #00bcd4 60%, #b2ebf2 100%); color: #fff; }
+        .energy-tag.pink { background: linear-gradient(90deg, #ec407a 60%, #f8bbd0 100%); color: #fff; }
+        .energy-tag.deepblue { background: linear-gradient(90deg, #1565c0 60%, #90caf9 100%); color: #fff; }
         .energy-particle {
             position: absolute;
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #43e97b 0%, #42a5f5 100%);
-            box-shadow: 0 0 8px #43e97b, 0 0 12px #42a5f5;
+            background: #42a5f5;
+            box-shadow: 0 0 8px #42a5f5, 0 0 12px #42a5f5;
             opacity: 0.85;
             pointer-events: none;
             z-index: 2;
@@ -254,12 +284,6 @@
             60% { opacity: 1; transform: scale(1.2); }
             100% { opacity: 0; transform: scale(2.2); }
         }
-        .energy-center-text.final {
-            font-size: 1.6rem;
-            color: #ff9800;
-            text-shadow: 0 2px 16px #fff, 0 0px 2px #ff9800;
-            animation: popIn 0.7s;
-        }
         @keyframes popIn {
             0% { opacity: 0; transform: scale(0.7); }
             70% { opacity: 1; transform: scale(1.2); }
@@ -272,9 +296,18 @@
         <h1 class="main-title mb-4">Laptop Bảo Duy - Hệ thống cửa hàng toàn quốc</h1>
         <div class="energy-center-container">
             <div class="energy-center" id="energyCenter">
-                <div class="energy-center-text" id="energyCenterText">Laptop<br>Bảo Duy</div>
+                <svg class="laptop-svg-center" viewBox="0 0 140 100" fill="none">
+                    <!-- Thân laptop -->
+                    <rect x="10" y="60" width="120" height="18" rx="6" fill="#3a4a6b"/>
+                    <rect x="20" y="65" width="100" height="8" rx="4" fill="#b0bec5"/>
+                    <!-- Màn hình -->
+                    <rect x="20" y="15" width="100" height="50" rx="8" fill="#e3eafc" stroke="#2196f3" stroke-width="2"/>
+                    <rect x="28" y="23" width="84" height="34" rx="4" fill="#fff" stroke="#b0bec5" stroke-width="1.5"/>
+                    <text x="70" y="40" class="laptop-screen-text" id="laptopScreenText">No1</text>
+                </svg>
+                <div class="energy-center-text final" id="energyCenterText" style="display:none;"></div>
             </div>
-            <div id="energyTags"></div>
+            <div class="energy-tags-row" id="energyTags"></div>
             <div id="energyParticles"></div>
             <div class="energy-explosion" id="energyExplosion" style="display:none;"></div>
             <div class="energy-progress-bar">
@@ -499,9 +532,7 @@
         let tagIdx = 0;
         let progress = 40;
         const tagCount = 6;
-        const tagRadius = 140;
         let activeTags = [];
-        let particleInterval = null;
         function placeTags() {
             energyTags.innerHTML = '';
             activeTags = [];
@@ -510,75 +541,102 @@
                 const tag = document.createElement('div');
                 tag.className = 'energy-tag ' + tagData.color;
                 tag.textContent = tagData.text;
-                const angle = (360 / tagCount) * i - 90;
-                const rad = angle * Math.PI / 180;
-                tag.style.left = `calc(50% + ${Math.cos(rad) * tagRadius}px)`;
-                tag.style.top = `calc(50% + ${Math.sin(rad) * tagRadius}px)`;
-                tag.style.opacity = 1;
-                tag.style.transform = 'scale(1)';
                 energyTags.appendChild(tag);
-                activeTags.push({el: tag, angle: angle, rad: rad});
+                activeTags.push({el: tag});
             }
         }
-        function emitParticle(fromTag) {
-            const particle = document.createElement('div');
-            particle.className = 'energy-particle';
-            const tagRect = fromTag.el.getBoundingClientRect();
-            const centerRect = center.getBoundingClientRect();
-            const containerRect = energyTags.parentElement.getBoundingClientRect();
-            const startX = tagRect.left + tagRect.width/2 - containerRect.left;
-            const startY = tagRect.top + tagRect.height/2 - containerRect.top;
-            const endX = centerRect.left + centerRect.width/2 - containerRect.left;
-            const endY = centerRect.top + centerRect.height/2 - containerRect.top;
-            particle.style.left = `${startX}px`;
-            particle.style.top = `${startY}px`;
-            energyParticles.appendChild(particle);
-            setTimeout(() => {
-                particle.style.transition = 'all 1.5s cubic-bezier(.4,2,.6,1)';
-                particle.style.left = `${endX}px`;
-                particle.style.top = `${endY}px`;
-                particle.style.opacity = 0;
-                particle.style.transform = 'scale(0.7)';
-            }, 30);
-            setTimeout(() => {
-                if (energyParticles.contains(particle)) energyParticles.removeChild(particle);
-                progress += 5;
-                if (progress > 100) progress = 100;
-                document.getElementById('energyProgressInner').style.width = progress + '%';
-                document.getElementById('energyProgressText').textContent = progress + '%';
-                if (progress >= 100) {
-                    clearInterval(particleInterval);
-                    triggerExplosion();
-                }
-            }, 1600);
-        }
-        function startParticles() {
-            if (particleInterval) clearInterval(particleInterval);
-            particleInterval = setInterval(() => {
-                if (progress >= 100) return;
-                const idx = Math.floor(Math.random() * activeTags.length);
-                emitParticle(activeTags[idx]);
-            }, 400);
+        // Truyền năng lượng từng thẻ một
+        let currentTagIdx = 0;
+        function emitParticleFromTagSequential() {
+            if (progress >= 100) return;
+            // Truyền hạt từ tất cả các thẻ cùng một lúc
+            activeTags.forEach((fromTag, index) => {
+                // Lấy màu từ class của thẻ
+                let color = '#42a5f5';
+                if (fromTag.el.classList.contains('orange')) color = '#ff9800';
+                if (fromTag.el.classList.contains('green')) color = '#43e97b';
+                if (fromTag.el.classList.contains('purple')) color = '#ab47bc';
+                if (fromTag.el.classList.contains('red')) color = '#e53935';
+                if (fromTag.el.classList.contains('blue')) color = '#42a5f5';
+                if (fromTag.el.classList.contains('yellow')) color = '#ffd600';
+                if (fromTag.el.classList.contains('cyan')) color = '#00bcd4';
+                if (fromTag.el.classList.contains('pink')) color = '#ec407a';
+                if (fromTag.el.classList.contains('deepblue')) color = '#1565c0';
+                const particle = document.createElement('div');
+                particle.className = 'energy-particle';
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 8px ${color}, 0 0 12px ${color}`;
+                // Đặt vị trí xuất phát (giữa thẻ)
+                const tagRect = fromTag.el.getBoundingClientRect();
+                const centerRect = center.getBoundingClientRect();
+                const containerRect = energyTags.parentElement.getBoundingClientRect();
+                const startX = tagRect.left + tagRect.width/2 - containerRect.left;
+                const startY = tagRect.top + tagRect.height/2 - containerRect.top;
+                const endX = centerRect.left + centerRect.width/2 - containerRect.left;
+                const endY = centerRect.top + centerRect.height/2 - containerRect.top;
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+                energyParticles.appendChild(particle);
+                // Hiệu ứng bay lên trung tâm
+                setTimeout(() => {
+                    particle.style.transition = 'all 1.5s cubic-bezier(.4,2,.6,1)';
+                    particle.style.left = `${endX}px`;
+                    particle.style.top = `${endY}px`;
+                    particle.style.opacity = 0;
+                    particle.style.transform = 'scale(0.7)';
+                }, 30);
+                setTimeout(() => {
+                    if (energyParticles.contains(particle)) energyParticles.removeChild(particle);
+                    // Tăng phần trăm
+                    progress += 100 / (tagCount * 3); // mỗi thẻ truyền 3 hạt để đủ 100%
+                    if (progress > 100) progress = 100;
+                    document.getElementById('energyProgressInner').style.width = progress + '%';
+                    document.getElementById('energyProgressText').textContent = Math.round(progress) + '%';
+                    if (progress >= 100) {
+                        triggerExplosion();
+                    } else {
+                        // Mỗi thẻ truyền 3 hạt rồi mới chuyển sang thẻ tiếp theo
+                        if (!fromTag.particleCount) fromTag.particleCount = 0;
+                        fromTag.particleCount++;
+                        if (fromTag.particleCount < 3) {
+                            setTimeout(emitParticleFromTagSequential, 400);
+                        } else {
+                            fromTag.particleCount = 0;
+                            currentTagIdx++;
+                            setTimeout(emitParticleFromTagSequential, 400);
+                        }
+                    }
+                }, 1600);
+            });
         }
         function triggerExplosion() {
             explosion.innerHTML = '<div class="energy-explosion-effect"></div>';
             explosion.style.display = 'flex';
+            document.getElementById('laptopScreenText').textContent = '';
+            centerText.style.display = 'block';
             centerText.innerHTML = 'Laptop Bảo Duy<br><span style="font-size:1.2em;color:#ff9800;">số 1 Việt Nam</span>';
             centerText.classList.add('final');
             setTimeout(() => {
                 explosion.style.display = 'none';
-                centerText.innerHTML = 'Laptop<br>Bảo Duy';
+                centerText.style.display = 'none';
+                document.getElementById('laptopScreenText').textContent = 'Laptop\nBảo Duy';
                 centerText.classList.remove('final');
                 progress = 0;
                 document.getElementById('energyProgressInner').style.width = progress + '%';
                 document.getElementById('energyProgressText').textContent = progress + '%';
                 tagIdx = (tagIdx + tagCount) % tags.length;
                 placeTags();
-                setTimeout(startParticles, 800);
+                setTimeout(() => {
+                    currentTagIdx = 0;
+                    emitParticleFromTagSequential();
+                }, 800);
             }, 1200);
         }
         placeTags();
-        setTimeout(startParticles, 800);
+        setTimeout(() => {
+            currentTagIdx = 0;
+            emitParticleFromTagSequential();
+        }, 800);
     </script>
 </body>
 </html> 
