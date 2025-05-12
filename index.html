@@ -191,9 +191,13 @@
             justify-content: center;
             align-items: flex-start;
             gap: 18px;
-            margin-top: 38px;
+            margin-top: 200px;
             position: relative;
             z-index: 2;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .energy-tag {
             position: relative;
@@ -202,34 +206,49 @@
             border-radius: 24px;
             font-weight: bold;
             font-size: 1.08rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
             opacity: 1;
             pointer-events: none;
             white-space: nowrap;
             border: 2px solid transparent;
             color: #fff;
-            transition: background 0.2s, color 0.2s;
-            z-index: 1;
+            transition: all 0.3s ease;
+            margin: 8px;
+            transform-origin: center;
+            animation: tagAppear 0.5s ease-out forwards;
         }
-        .energy-tag.orange { background: linear-gradient(90deg, #ff9800 60%, #ffd180 100%); color: #fff; }
-        .energy-tag.green { background: linear-gradient(90deg, #43e97b 60%, #b9f6ca 100%); color: #fff; }
-        .energy-tag.purple { background: linear-gradient(90deg, #ab47bc 60%, #e1bee7 100%); color: #fff; }
-        .energy-tag.red { background: linear-gradient(90deg, #e53935 60%, #ff8a80 100%); color: #fff; }
-        .energy-tag.blue { background: linear-gradient(90deg, #42a5f5 60%, #b3e5fc 100%); color: #fff; }
-        .energy-tag.yellow { background: linear-gradient(90deg, #ffd600 60%, #fff59d 100%); color: #fff; }
-        .energy-tag.cyan { background: linear-gradient(90deg, #00bcd4 60%, #b2ebf2 100%); color: #fff; }
-        .energy-tag.pink { background: linear-gradient(90deg, #ec407a 60%, #f8bbd0 100%); color: #fff; }
-        .energy-tag.deepblue { background: linear-gradient(90deg, #1565c0 60%, #90caf9 100%); color: #fff; }
+        @keyframes tagAppear {
+            0% { 
+                transform: translateY(20px) scale(0.8);
+                opacity: 0;
+            }
+            100% { 
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+        .energy-tag.orange { background: linear-gradient(45deg, #ff9800, #ff5722); }
+        .energy-tag.green { background: linear-gradient(45deg, #43e97b, #38f9d7); }
+        .energy-tag.purple { background: linear-gradient(45deg, #ab47bc, #7e57c2); }
+        .energy-tag.red { background: linear-gradient(45deg, #f44336, #e91e63); }
+        .energy-tag.blue { background: linear-gradient(45deg, #42a5f5, #2196f3); }
+        .energy-tag.yellow { background: linear-gradient(45deg, #ffd600, #ffc107); }
+        .energy-tag.cyan { background: linear-gradient(45deg, #00bcd4, #26c6da); }
+        .energy-tag.pink { background: linear-gradient(45deg, #ec407a, #f48fb1); }
+        .energy-tag.deepblue { background: linear-gradient(45deg, #1565c0, #0d47a1); }
+        .energy-tag.teal { background: linear-gradient(45deg, #009688, #4db6ac); }
+        
         .energy-particle {
             position: absolute;
             width: 12px;
             height: 12px;
             border-radius: 50%;
             background: #42a5f5;
-            box-shadow: 0 0 8px #42a5f5, 0 0 12px #42a5f5;
+            box-shadow: 0 0 15px currentColor;
             opacity: 0.85;
             pointer-events: none;
             z-index: 2;
+            transition: all 2s cubic-bezier(.4,0,.2,1);
         }
         .energy-progress-bar {
             width: 180px;
@@ -263,8 +282,8 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%,-50%);
-            width: 180px;
-            height: 180px;
+            width: 300px;
+            height: 300px;
             pointer-events: none;
             z-index: 10;
             display: flex;
@@ -272,17 +291,103 @@
             justify-content: center;
         }
         .energy-explosion-effect {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #fff 0%, #42a5f5 40%, transparent 80%);
-            opacity: 0.8;
-            animation: explosion 0.8s forwards;
+            width: 100%;
+            height: 100%;
+            position: relative;
         }
         @keyframes explosion {
-            0% { opacity: 0.8; transform: scale(0.5); }
-            60% { opacity: 1; transform: scale(1.2); }
-            100% { opacity: 0; transform: scale(2.2); }
+            0% { 
+                opacity: 0; 
+                transform: scale(0.1); 
+                filter: brightness(2);
+            }
+            20% { 
+                opacity: 1; 
+                transform: scale(1.2);
+                filter: brightness(1.5);
+            }
+            40% {
+                opacity: 1;
+                transform: scale(1.4);
+                filter: brightness(1.2);
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(2);
+                filter: brightness(1);
+            }
+        }
+        @keyframes flash {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .explosion-center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.8));
+        }
+        .explosion-flash {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 50%, transparent 100%);
+            border-radius: 50%;
+            animation: flash 0.5s forwards;
+            z-index: 3;
+        }
+        .explosion-ring {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: explosion 1s forwards;
+            filter: drop-shadow(0 0 20px currentColor);
+        }
+        .explosion-ring-1 {
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(66,165,245,0.9) 40%, transparent 70%);
+            animation-delay: 0s;
+        }
+        .explosion-ring-2 {
+            background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(66,165,245,0.8) 50%, transparent 80%);
+            animation-delay: 0.1s;
+        }
+        .explosion-ring-3 {
+            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(66,165,245,0.7) 60%, transparent 90%);
+            animation-delay: 0.2s;
+        }
+        .explosion-smoke {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(200,200,200,0.6) 40%, transparent 70%);
+            border-radius: 50%;
+            animation: smoke 1.2s forwards;
+            box-shadow: 0 0 30px rgba(255,255,255,0.6);
+        }
+        @keyframes smoke {
+            0% {
+                opacity: 0.8;
+                transform: scale(0.1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.5);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2.5);
+            }
         }
         @keyframes popIn {
             0% { opacity: 0; transform: scale(0.7); }
@@ -524,110 +629,131 @@
             {text: 'Laptop số 1 Việt Nam', color: 'red'},
             {text: 'Dịch vụ tận tâm', color: 'cyan'}
         ];
+
         const energyTags = document.getElementById('energyTags');
         const energyParticles = document.getElementById('energyParticles');
         const center = document.getElementById('energyCenter');
         const centerText = document.getElementById('energyCenterText');
         const explosion = document.getElementById('energyExplosion');
-        let tagIdx = 0;
         let progress = 0;
         const tagCount = tags.length;
         let activeTags = [];
+        let isAnimating = true;
+
         function placeTags() {
             energyTags.innerHTML = '';
             activeTags = [];
-            const tagData = tags[tagIdx % tags.length];
-            const tag = document.createElement('div');
-            tag.className = 'energy-tag ' + tagData.color;
-            tag.textContent = tagData.text;
-            energyTags.appendChild(tag);
-            activeTags.push({el: tag});
+            
+            tags.forEach((tagData, index) => {
+                const tag = document.createElement('div');
+                tag.className = 'energy-tag ' + tagData.color;
+                tag.textContent = tagData.text;
+                tag.style.animationDelay = `${index * 0.1}s`;
+                energyTags.appendChild(tag);
+                activeTags.push({el: tag, color: tagData.color});
+            });
         }
-        function emitParticleFromTagSequential() {
-            if (progress >= 100) return;
-            const fromTag = activeTags[0];
-            // Lấy màu từ class của thẻ
-            let color = '#42a5f5';
-            if (fromTag.el.classList.contains('orange')) color = '#ff9800';
-            if (fromTag.el.classList.contains('green')) color = '#43e97b';
-            if (fromTag.el.classList.contains('purple')) color = '#ab47bc';
-            if (fromTag.el.classList.contains('red')) color = '#e53935';
-            if (fromTag.el.classList.contains('blue')) color = '#42a5f5';
-            if (fromTag.el.classList.contains('yellow')) color = '#ffd600';
-            if (fromTag.el.classList.contains('cyan')) color = '#00bcd4';
-            if (fromTag.el.classList.contains('pink')) color = '#ec407a';
-            if (fromTag.el.classList.contains('deepblue')) color = '#1565c0';
+
+        function getColorFromClass(className) {
+            const colorMap = {
+                'orange': '#ff5722',
+                'green': '#38f9d7',
+                'purple': '#7e57c2',
+                'red': '#e91e63',
+                'blue': '#2196f3',
+                'yellow': '#ffc107',
+                'cyan': '#26c6da',
+                'pink': '#f48fb1',
+                'deepblue': '#0d47a1',
+                'teal': '#4db6ac'
+            };
+            for (let color in colorMap) {
+                if (className.includes(color)) return colorMap[color];
+            }
+            return '#42a5f5';
+        }
+
+        function emitParticle(fromTag) {
+            if (!isAnimating) return;
+            
+            const color = getColorFromClass(fromTag.el.className);
             const particle = document.createElement('div');
             particle.className = 'energy-particle';
             particle.style.background = color;
-            particle.style.boxShadow = `0 0 8px ${color}, 0 0 12px ${color}`;
-            // Đặt vị trí xuất phát (giữa thẻ)
+            particle.style.boxShadow = `0 0 15px ${color}`;
+            particle.style.color = color;
+
             const tagRect = fromTag.el.getBoundingClientRect();
             const centerRect = center.getBoundingClientRect();
             const containerRect = energyTags.parentElement.getBoundingClientRect();
+
             const startX = tagRect.left + tagRect.width/2 - containerRect.left;
             const startY = tagRect.top + tagRect.height/2 - containerRect.top;
             const endX = centerRect.left + centerRect.width/2 - containerRect.left;
             const endY = centerRect.top + centerRect.height/2 - containerRect.top;
+
             particle.style.left = `${startX}px`;
             particle.style.top = `${startY}px`;
             energyParticles.appendChild(particle);
-            // Hiệu ứng bay lên trung tâm
-            setTimeout(() => {
-                particle.style.transition = 'all 1.5s cubic-bezier(.4,2,.6,1)';
+
+            requestAnimationFrame(() => {
                 particle.style.left = `${endX}px`;
                 particle.style.top = `${endY}px`;
                 particle.style.opacity = 0;
                 particle.style.transform = 'scale(0.7)';
-            }, 30);
+            });
+
             setTimeout(() => {
-                if (energyParticles.contains(particle)) energyParticles.removeChild(particle);
-                // Tăng phần trăm
-                progress += 100 / tagCount; // mỗi thẻ truyền 1 hạt để đủ 100%
-                if (progress > 100) progress = 100;
+                if (energyParticles.contains(particle)) {
+                    energyParticles.removeChild(particle);
+                }
+                progress += 0.25;
+                if (progress > 100) {
+                    progress = 100;
+                    triggerExplosion();
+                }
                 document.getElementById('energyProgressInner').style.width = progress + '%';
                 document.getElementById('energyProgressText').textContent = Math.round(progress) + '%';
-                if (progress >= 100) {
-                    triggerExplosion();
-                } else {
-                    // Xóa thẻ cũ
-                    energyTags.innerHTML = '';
-                    activeTags = [];
-                    // Đợi 1 giây rồi hiện thẻ mới
-                    setTimeout(() => {
-                        tagIdx++;
-                        placeTags();
-                        setTimeout(emitParticleFromTagSequential, 400);
-                    }, 1000);
-                }
-            }, 1600);
+            }, 2000);
         }
+
+        function emitParticlesLoop() {
+            if (!isAnimating) return;
+            activeTags.forEach((tag, index) => {
+                setTimeout(() => {
+                    emitParticle(tag);
+                }, index * 400);
+            });
+            setTimeout(emitParticlesLoop, 4000);
+        }
+
         function triggerExplosion() {
-            explosion.innerHTML = '<div class="energy-explosion-effect"></div>';
+            isAnimating = false;
+            explosion.innerHTML = `
+                <div class="energy-explosion-effect">
+                    <div class="explosion-center">
+                        <div class="explosion-flash"></div>
+                        <div class="explosion-ring explosion-ring-1"></div>
+                        <div class="explosion-ring explosion-ring-2"></div>
+                        <div class="explosion-ring explosion-ring-3"></div>
+                        <div class="explosion-smoke"></div>
+                    </div>
+                </div>
+            `;
             explosion.style.display = 'flex';
-            document.getElementById('laptopScreenText').textContent = '';
-            centerText.style.display = 'block';
-            centerText.innerHTML = 'No1<br><span style="font-size:1.2em;color:#ff9800;">số 1 Việt Nam</span>';
-            centerText.classList.add('final');
+
             setTimeout(() => {
                 explosion.style.display = 'none';
-                centerText.style.display = 'none';
-                document.getElementById('laptopScreenText').textContent = 'Laptop\nBảo Duy';
-                centerText.classList.remove('final');
                 progress = 0;
                 document.getElementById('energyProgressInner').style.width = progress + '%';
                 document.getElementById('energyProgressText').textContent = progress + '%';
-                tagIdx = 0;
-                placeTags();
-                setTimeout(() => {
-                    emitParticleFromTagSequential();
-                }, 800);
+                isAnimating = true;
+                emitParticlesLoop();
             }, 1200);
         }
+
         placeTags();
-        setTimeout(() => {
-            emitParticleFromTagSequential();
-        }, 800);
+        setTimeout(emitParticlesLoop, 1000);
     </script>
 </body>
 </html> 
