@@ -198,6 +198,7 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 15px;
         }
         .energy-tag {
             position: relative;
@@ -216,6 +217,7 @@
             margin: 8px;
             transform-origin: center;
             animation: tagAppear 0.5s ease-out forwards;
+            text-align: center;
         }
         @keyframes tagAppear {
             0% { 
@@ -393,6 +395,70 @@
             0% { opacity: 0; transform: scale(0.7); }
             70% { opacity: 1; transform: scale(1.2); }
             100% { opacity: 1; transform: scale(1); }
+        }
+        @media (max-width: 768px) {
+            .energy-tags-row {
+                margin-top: 150px;
+                gap: 12px;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 100%;
+                padding: 0 10px;
+            }
+            .energy-tag {
+                min-width: unset;
+                width: 100%;
+                font-size: 0.95rem;
+                padding: 10px 12px;
+                margin: 4px;
+                white-space: normal;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+            .energy-center {
+                transform: scale(0.9);
+            }
+            .energy-explosion {
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            .main-title {
+                font-size: 1.8rem;
+                margin-bottom: 24px;
+                padding: 0 15px;
+            }
+            .energy-progress-bar {
+                width: 140px;
+                height: 16px;
+            }
+            .energy-progress-text {
+                font-size: 0.9rem;
+            }
+            .energy-particle {
+                width: 10px;
+                height: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .energy-tags-row {
+                margin-top: 120px;
+                grid-template-columns: 1fr;
+            }
+            .energy-tag {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+            .main-title {
+                font-size: 1.5rem;
+            }
+            .energy-center {
+                transform: scale(0.8);
+            }
+            .energy-explosion {
+                transform: translate(-50%, -50%) scale(0.7);
+            }
         }
     </style>
 </head>
