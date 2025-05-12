@@ -29,14 +29,15 @@
             margin-top: 20px;
         }
         .store-card {
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
+            margin-bottom: 18px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         .store-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.13);
         }
         .store-navigation {
             position: absolute;
@@ -45,17 +46,30 @@
             transform: translateY(-50%);
         }
         .store-navigation button {
-            background: #4285F4;
-            color: white;
+            min-width: 120px;
+            font-weight: 600;
             border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 15px;
+            margin-top: 8px;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
         }
-        .store-navigation button:hover {
-            background: #3367D6;
+        .btn-nearest {
+            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 28px;
+            font-size: 18px;
+            box-shadow: 0 4px 16px rgba(56,249,215,0.15);
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .btn-nearest:hover {
+            background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+            box-shadow: 0 8px 32px rgba(56,249,215,0.22);
         }
         .location-button {
             position: absolute;
@@ -67,13 +81,27 @@
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+        @media (max-width: 768px) {
+            .store-card { padding: 0; }
+            .store-navigation button { width: 100%; margin-top: 12px; }
+        }
+        .store-card.bg-hcm { background: linear-gradient(90deg, #ff7043 0%, #ffb199 100%); color: #fff; }
+        .store-card.bg-nhatrang { background: linear-gradient(90deg, #42a5f5 0%, #b3e5fc 100%); color: #fff; }
+        .store-card.bg-binhdinh { background: linear-gradient(90deg, #66bb6a 0%, #b9f6ca 100%); color: #fff; }
+        .store-card.bg-danang { background: linear-gradient(90deg, #ab47bc 0%, #e1bee7 100%); color: #fff; }
+        .store-card.bg-quangtri { background: linear-gradient(90deg, #ffa726 0%, #ffe082 100%); color: #fff; }
+        .store-card.bg-quangbinh { background: linear-gradient(90deg, #26a69a 0%, #80cbc4 100%); color: #fff; }
+        .store-card.bg-vinh { background: linear-gradient(90deg, #ec407a 0%, #f8bbd0 100%); color: #fff; }
+        .store-card.bg-ninhbinh { background: linear-gradient(90deg, #7e57c2 0%, #d1c4e9 100%); color: #fff; }
+        .store-card.bg-namdinh { background: linear-gradient(90deg, #789262 0%, #dcedc8 100%); color: #fff; }
+        .store-card.bg-hanoi { background: linear-gradient(90deg, #29b6f6 0%, #b3e5fc 100%); color: #fff; }
     </style>
 </head>
 <body>
     <div class="container mt-4">
         <h1 class="text-center mb-4">Laptop Bảo Duy - Hệ thống cửa hàng toàn quốc</h1>
         <div class="d-flex justify-content-center mb-3">
-            <button id="findNearestBtn" class="btn btn-success">
+            <button id="findNearestBtn" class="btn-nearest">
                 <i class="fas fa-location-arrow"></i> Tìm cửa hàng gần nhất
             </button>
         </div>
@@ -82,62 +110,62 @@
                 <div class="store-info">
                     <h3>Danh sách cửa hàng</h3>
                     <div class="list-group">
-                        <div class="card store-card" data-lat="10.762622" data-lng="106.660172" data-name="Hồ Chí Minh">
+                        <div class="card store-card bg-hcm" data-lat="10.762622" data-lng="106.660172" data-name="Hồ Chí Minh">
                             <div class="card-body">
                                 <h5 class="card-title">Hồ Chí Minh</h5>
                                 <p class="card-text">Hotline: 0978.800.841</p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('10.762622,106.660172', 'Hồ Chí Minh')">
+                                    <button style="background: #ff7043; color: #fff;" onclick="navigateToStore('10.762622,106.660172', 'Hồ Chí Minh')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card store-card" data-lat="12.238791" data-lng="109.196749" data-name="Nha Trang">
+                        <div class="card store-card bg-nhatrang" data-lat="12.238791" data-lng="109.196749" data-name="Nha Trang">
                             <div class="card-body">
                                 <h5 class="card-title">Nha Trang</h5>
                                 <p class="card-text">Hotline: 0973.159.246</p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('12.238791,109.196749', 'Nha Trang')">
+                                    <button style="background: #42a5f5; color: #fff;" onclick="navigateToStore('12.238791,109.196749', 'Nha Trang')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card store-card" data-lat="13.880511" data-lng="109.110321" data-name="Bình Định">
+                        <div class="card store-card bg-binhdinh" data-lat="13.880511" data-lng="109.110321" data-name="Bình Định">
                             <div class="card-body">
                                 <h5 class="card-title">Bình Định</h5>
                                 <p class="card-text">Hotline: 0935.603.339</p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('13.880511,109.110321', 'Bình Định')">
+                                    <button style="background: #66bb6a; color: #fff;" onclick="navigateToStore('13.880511,109.110321', 'Bình Định')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card store-card" data-lat="16.054407" data-lng="108.202167" data-name="Đà Nẵng">
+                        <div class="card store-card bg-danang" data-lat="16.054407" data-lng="108.202167" data-name="Đà Nẵng">
                             <div class="card-body">
                                 <h5 class="card-title">Đà Nẵng</h5>
                                 <p class="card-text">Hotline: 0961.217.555</p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('16.054407,108.202167', 'Đà Nẵng')">
+                                    <button style="background: #ab47bc; color: #fff;" onclick="navigateToStore('16.054407,108.202167', 'Đà Nẵng')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card store-card" data-lat="16.750000" data-lng="107.200000" data-name="Quảng Trị">
+                        <div class="card store-card bg-quangtri" data-lat="16.750000" data-lng="107.200000" data-name="Quảng Trị">
                             <div class="card-body">
                                 <h5 class="card-title">Quảng Trị</h5>
                                 <p class="card-text">Hotline: 0914.034.824</p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('16.750000,107.200000', 'Quảng Trị')">
+                                    <button style="background: #ffa726; color: #fff;" onclick="navigateToStore('16.750000,107.200000', 'Quảng Trị')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card store-card" data-lat="17.465722" data-lng="106.599167" data-name="Quảng Bình">
+                        <div class="card store-card bg-quangbinh" data-lat="17.465722" data-lng="106.599167" data-name="Quảng Bình">
                             <div class="card-body">
                                 <h5 class="card-title">Quảng Bình</h5>
                                 <p class="card-text">Hotline: 0985.747.555</p>
@@ -149,51 +177,51 @@
                                     </small>
                                 </p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('17.465722,106.599167', 'Quảng Bình')">
+                                    <button style="background: #26a69a; color: #fff;" onclick="navigateToStore('17.465722,106.599167', 'Quảng Bình')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card store-card" data-lat="18.679585" data-lng="105.681335" data-name="Tp Vinh">
+                        <div class="card store-card bg-vinh" data-lat="18.679585" data-lng="105.681335" data-name="Tp Vinh">
                             <div class="card-body">
                                 <h5 class="card-title">Tp Vinh</h5>
                                 <p class="card-text">Hotline: 0969.127.555</p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('18.679585,105.681335', 'Tp Vinh')">
+                                    <button style="background: #ec407a; color: #fff;" onclick="navigateToStore('18.679585,105.681335', 'Tp Vinh')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card store-card" data-lat="20.253665" data-lng="105.975000" data-name="Ninh Bình">
+                        <div class="card store-card bg-ninhbinh" data-lat="20.253665" data-lng="105.975000" data-name="Ninh Bình">
                             <div class="card-body">
                                 <h5 class="card-title">Ninh Bình</h5>
                                 <p class="card-text">Hotline: 0913.336.242</p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('20.253665,105.975000', 'Ninh Bình')">
+                                    <button style="background: #7e57c2; color: #fff;" onclick="navigateToStore('20.253665,105.975000', 'Ninh Bình')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card store-card" data-lat="20.433333" data-lng="106.166667" data-name="Nam Định">
+                        <div class="card store-card bg-namdinh" data-lat="20.433333" data-lng="106.166667" data-name="Nam Định">
                             <div class="card-body">
                                 <h5 class="card-title">Nam Định</h5>
                                 <p class="card-text">Hotline: 0949.175.222</p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('20.433333,106.166667', 'Nam Định')">
+                                    <button style="background: #789262; color: #fff;" onclick="navigateToStore('20.433333,106.166667', 'Nam Định')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card store-card" data-lat="21.028511" data-lng="105.804817" data-name="Hà Nội">
+                        <div class="card store-card bg-hanoi" data-lat="21.028511" data-lng="105.804817" data-name="Hà Nội">
                             <div class="card-body">
                                 <h5 class="card-title">Hà Nội</h5>
                                 <p class="card-text">Hotline: 0822.873.999</p>
                                 <div class="store-navigation">
-                                    <button onclick="navigateToStore('21.028511,105.804817', 'Hà Nội')">
+                                    <button style="background: #29b6f6; color: #fff;" onclick="navigateToStore('21.028511,105.804817', 'Hà Nội')">
                                         <i class="fas fa-directions"></i> Chỉ đường
                                     </button>
                                 </div>
