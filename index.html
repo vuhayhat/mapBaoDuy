@@ -191,54 +191,47 @@
         }
         .energy-tags-row {
             display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            margin-top: 120px;
+            margin-top: 80px;
             position: relative;
             z-index: 2;
-            max-width: 600px;
+            width: 100%;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             padding: 0 15px;
-            gap: 15px;
+            gap: 12px;
         }
         .energy-tag {
             position: relative;
-            padding: 10px 25px;
+            padding: 10px 24px;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.95rem;
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-            opacity: 1;
+            opacity: 0;
             pointer-events: none;
             white-space: nowrap;
             color: #fff;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             transform-origin: center;
-            animation: tagAppear 0.5s ease-out forwards;
             text-align: center;
-            min-width: 0;
-            flex: 0 1 auto;
+            min-width: 160px;
+            max-width: calc(50% - 24px);
+            margin: 6px;
+            transform: translateY(20px);
         }
-        @keyframes tagAppear {
-            0% { 
-                transform: translateY(20px) scale(0.8);
-                opacity: 0;
-            }
-            100% { 
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
+        .energy-tag:nth-child(4),
+        .energy-tag:nth-child(7),
+        .energy-tag:nth-child(9) {
+            min-width: 250px;
         }
-        .energy-tag:nth-child(3n+1) {
-            transform: translateX(-20px);
-        }
-        .energy-tag:nth-child(3n+2) {
-            transform: translateX(0);
-        }
-        .energy-tag:nth-child(3n) {
-            transform: translateX(20px);
+        .energy-tag:nth-child(5),
+        .energy-tag:nth-child(6) {
+            min-width: 150px;
         }
         .energy-tag.yellow { background: linear-gradient(45deg, #ffd700, #ffa000); }
         .energy-tag.deepblue { background: linear-gradient(45deg, #1976d2, #0d47a1); }
@@ -252,15 +245,15 @@
         .energy-tag.cyan { background: linear-gradient(45deg, #00bcd4, #0097a7); }
         .energy-particle {
             position: absolute;
-            width: 12px;
-            height: 12px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: #42a5f5;
-            box-shadow: 0 0 15px currentColor;
-            opacity: 0.85;
+            box-shadow: 0 0 12px currentColor;
+            opacity: 0.75;
             pointer-events: none;
             z-index: 2;
-            transition: all 2s cubic-bezier(.4,0,.2,1);
+            transition: all 2.5s cubic-bezier(.4,0,.2,1);
         }
         .energy-progress-bar {
             width: 180px;
@@ -412,23 +405,24 @@
                 margin-bottom: 20px;
             }
             .energy-tags-row {
-                margin-top: 80px;
-                max-width: 450px;
-                gap: 12px;
-                padding: 0 20px;
+                flex-direction: row;
+                margin-top: 60px;
+                gap: 8px;
             }
             .energy-tag {
                 padding: 8px 20px;
-                font-size: 0.95rem;
+                font-size: 0.9rem;
+                min-width: 140px;
+                max-width: calc(100% - 16px);
             }
-            .energy-tag:nth-child(3n+1) {
-                transform: translateX(-15px);
+            .energy-tag:nth-child(4),
+            .energy-tag:nth-child(7),
+            .energy-tag:nth-child(9) {
+                min-width: 220px;
             }
-            .energy-tag:nth-child(3n+2) {
-                transform: translateX(0);
-            }
-            .energy-tag:nth-child(3n) {
-                transform: translateX(15px);
+            .energy-tag:nth-child(5),
+            .energy-tag:nth-child(6) {
+                min-width: 130px;
             }
             .main-title {
                 font-size: 1.8rem;
@@ -441,31 +435,31 @@
                 margin-top: 15px;
             }
             .energy-particle {
-                width: 8px;
-                height: 8px;
+                width: 6px;
+                height: 6px;
             }
         }
         @media (max-width: 480px) {
             .energy-center-container {
-                transform: scale(0.8);
+                transform: scale(0.85);
             }
             .energy-tags-row {
-                margin-top: 60px;
-                max-width: 360px;
-                gap: 10px;
+                margin-top: 40px;
+                gap: 6px;
             }
             .energy-tag {
-                padding: 7px 18px;
-                font-size: 0.9rem;
+                padding: 6px 16px;
+                font-size: 0.85rem;
+                min-width: 120px;
             }
-            .energy-tag:nth-child(3n+1) {
-                transform: translateX(-10px);
+            .energy-tag:nth-child(4),
+            .energy-tag:nth-child(7),
+            .energy-tag:nth-child(9) {
+                min-width: 200px;
             }
-            .energy-tag:nth-child(3n+2) {
-                transform: translateX(0);
-            }
-            .energy-tag:nth-child(3n) {
-                transform: translateX(10px);
+            .energy-tag:nth-child(5),
+            .energy-tag:nth-child(6) {
+                min-width: 120px;
             }
             .main-title {
                 font-size: 1.5rem;
@@ -475,8 +469,8 @@
                 height: 14px;
             }
             .energy-particle {
-                width: 6px;
-                height: 6px;
+                width: 4px;
+                height: 4px;
             }
         }
     </style>
@@ -724,6 +718,7 @@
         const tagCount = tags.length;
         let activeTags = [];
         let isAnimating = true;
+        let isExploding = false;
 
         function placeTags() {
             energyTags.innerHTML = '';
@@ -733,10 +728,104 @@
                 const tag = document.createElement('div');
                 tag.className = 'energy-tag ' + tagData.color;
                 tag.textContent = tagData.text;
-                tag.style.animationDelay = `${index * 0.1}s`;
+                tag.style.opacity = '0';
+                tag.style.transform = 'translateY(20px)';
+                tag.style.position = 'absolute';
+                tag.style.left = '50%';
+                tag.style.transform = 'translateX(-50%) translateY(20px)';
+                tag.style.display = 'none';
                 energyTags.appendChild(tag);
                 activeTags.push({el: tag, color: tagData.color});
             });
+        }
+
+        function showNextTag(index = 0) {
+            if (!isAnimating || index >= activeTags.length) return;
+            
+            // Hide all tags first
+            activeTags.forEach(tag => {
+                tag.el.style.display = 'none';
+                tag.el.style.opacity = '0';
+            });
+            
+            const tag = activeTags[index];
+            tag.el.style.display = 'block';
+            
+            // Show tag with animation
+            requestAnimationFrame(() => {
+                tag.el.style.transition = 'all 0.5s ease-out';
+                tag.el.style.opacity = '1';
+                tag.el.style.transform = 'translateX(-50%) translateY(0)';
+            });
+
+            let particleCount = 0;
+            const maxParticles = 3; // Reduced from 5 to 3 for better performance
+            const particleDelay = 1000; // Increased from 800 to 1000ms
+            
+            function emitParticleForTag() {
+                if (!isAnimating || particleCount >= maxParticles) {
+                    // Fade out current tag
+                    tag.el.style.transition = 'all 0.5s ease-in';
+                    tag.el.style.opacity = '0';
+                    tag.el.style.transform = 'translateX(-50%) translateY(-20px)';
+                    
+                    setTimeout(() => {
+                        tag.el.style.display = 'none';
+                        showNextTag(index + 1);
+                    }, 500);
+                    return;
+                }
+
+                const color = getColorFromClass(tag.el.className);
+                const particle = document.createElement('div');
+                particle.className = 'energy-particle';
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 12px ${color}`;
+                particle.style.color = color;
+
+                const tagRect = tag.el.getBoundingClientRect();
+                const centerRect = center.getBoundingClientRect();
+                const containerRect = energyTags.parentElement.getBoundingClientRect();
+
+                const startX = tagRect.left + tagRect.width/2 - containerRect.left;
+                const startY = tagRect.top + tagRect.height/2 - containerRect.top;
+                const endX = centerRect.left + centerRect.width/2 - containerRect.left;
+                const endY = centerRect.top + centerRect.height/2 - containerRect.top;
+
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+                energyParticles.appendChild(particle);
+
+                // Use requestAnimationFrame for smoother animation
+                requestAnimationFrame(() => {
+                    particle.style.left = `${endX}px`;
+                    particle.style.top = `${endY}px`;
+                    particle.style.opacity = '0';
+                    particle.style.transform = 'scale(0.5)';
+                });
+
+                // Cleanup and progress update
+                setTimeout(() => {
+                    if (energyParticles.contains(particle)) {
+                        energyParticles.removeChild(particle);
+                    }
+                    if (progress < 100) {
+                        progress += 3; // Increased from 2 to 3 for faster progress
+                        if (progress > 100) progress = 100;
+                        document.getElementById('energyProgressInner').style.width = progress + '%';
+                        document.getElementById('energyProgressText').textContent = Math.round(progress) + '%';
+                    }
+                    if (progress >= 100 && !isExploding) {
+                        triggerExplosion();
+                        return;
+                    }
+                }, 2500); // Increased from 1000 to 2500ms for smoother animation
+
+                particleCount++;
+                setTimeout(emitParticleForTag, particleDelay);
+            }
+
+            setTimeout(emitParticleForTag, 500);
         }
 
         function getColorFromClass(className) {
@@ -758,62 +847,22 @@
             return '#42a5f5';
         }
 
-        function emitParticle(fromTag) {
-            if (!isAnimating) return;
-            
-            const color = getColorFromClass(fromTag.el.className);
-            const particle = document.createElement('div');
-            particle.className = 'energy-particle';
-            particle.style.background = color;
-            particle.style.boxShadow = `0 0 15px ${color}`;
-            particle.style.color = color;
-
-            const tagRect = fromTag.el.getBoundingClientRect();
-            const centerRect = center.getBoundingClientRect();
-            const containerRect = energyTags.parentElement.getBoundingClientRect();
-
-            const startX = tagRect.left + tagRect.width/2 - containerRect.left;
-            const startY = tagRect.top + tagRect.height/2 - containerRect.top;
-            const endX = centerRect.left + centerRect.width/2 - containerRect.left;
-            const endY = centerRect.top + centerRect.height/2 - containerRect.top;
-
-            particle.style.left = `${startX}px`;
-            particle.style.top = `${startY}px`;
-            energyParticles.appendChild(particle);
-
-            requestAnimationFrame(() => {
-                particle.style.left = `${endX}px`;
-                particle.style.top = `${endY}px`;
-                particle.style.opacity = 0;
-                particle.style.transform = 'scale(0.7)';
-            });
-
-            setTimeout(() => {
-                if (energyParticles.contains(particle)) {
-                    energyParticles.removeChild(particle);
-                }
-                progress += 0.25;
-                if (progress > 100) {
-                    progress = 100;
-                    triggerExplosion();
-                }
-                document.getElementById('energyProgressInner').style.width = progress + '%';
-                document.getElementById('energyProgressText').textContent = Math.round(progress) + '%';
-            }, 2000);
-        }
-
-        function emitParticlesLoop() {
-            if (!isAnimating) return;
-            activeTags.forEach((tag, index) => {
-                setTimeout(() => {
-                    emitParticle(tag);
-                }, index * 400);
-            });
-            setTimeout(emitParticlesLoop, 4000);
-        }
-
         function triggerExplosion() {
+            if (isExploding) return;
+            isExploding = true;
             isAnimating = false;
+
+            // Cleanup existing particles
+            cleanup();
+
+            // Hide all tags with animation
+            activeTags.forEach(tag => {
+                tag.el.style.transition = 'all 0.5s ease-in';
+                tag.el.style.opacity = '0';
+                tag.el.style.transform = 'translateY(-20px)';
+            });
+
+            // Show explosion effect
             explosion.innerHTML = `
                 <div class="energy-explosion-effect">
                     <div class="explosion-center">
@@ -827,18 +876,39 @@
             `;
             explosion.style.display = 'flex';
 
+            // Reset after explosion
             setTimeout(() => {
                 explosion.style.display = 'none';
+                explosion.innerHTML = '';
                 progress = 0;
                 document.getElementById('energyProgressInner').style.width = progress + '%';
                 document.getElementById('energyProgressText').textContent = progress + '%';
                 isAnimating = true;
-                emitParticlesLoop();
-            }, 1200);
+                isExploding = false;
+                
+                // Start new animation cycle
+                setTimeout(() => {
+                    placeTags();
+                    showNextTag(0);
+                }, 1500); // Increased from 1000 to 1500ms for better timing
+            }, 2500); // Increased from 2000 to 2500ms for smoother transition
         }
 
-        placeTags();
-        setTimeout(emitParticlesLoop, 1000);
+        function cleanup() {
+            isAnimating = false;
+            while (energyParticles.firstChild) {
+                energyParticles.removeChild(energyParticles.firstChild);
+            }
+        }
+
+        // Start the animation when page loads
+        window.addEventListener('load', () => {
+            placeTags();
+            showNextTag(0);
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('unload', cleanup);
     </script>
 </body>
 </html> 
